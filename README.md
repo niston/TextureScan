@@ -2,6 +2,7 @@
 
 This tool will scan a folder (including all subfolders) for DDS texture files with abnormal dimensions. It allows you to find textures in your folders that have the potential to crash your game or 3D application. Also, it goes _very_  fast if your harddrive can keep up.
 
+![alt text](https://i.imgur.com/2h60NPl.png)
 
 **HOW TO USE**
 

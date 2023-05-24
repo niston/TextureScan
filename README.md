@@ -6,7 +6,7 @@ This tool will scan a folder (including all subfolders) for DDS texture files wi
 **HOW TO USE**
 
 - Requires [Microsoft .NET Framework 4.7.1](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net471) or higher
-- Exctract and run the executable
+- Build from source, or exctract and run the executable
 - Select scan folder with textures in it
 - Hit GO button
 - Observe

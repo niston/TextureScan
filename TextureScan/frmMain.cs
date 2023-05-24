@@ -14,7 +14,7 @@ namespace TextureScan
         // https://learn.microsoft.com/en-us/windows/win32/direct3ddds/dds-header
 
         // DDS cubemap flag
-        private const int DDSCAPS2_CUBEMAP = 0x200;
+        private const int DDSCAPS2_CUBEMAP = 10;
         
         // DDS header struct        
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]

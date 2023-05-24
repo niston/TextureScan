@@ -13,7 +13,7 @@ namespace TextureScan
         // DDS file format info
         // https://learn.microsoft.com/en-us/windows/win32/direct3ddds/dds-header
 
-        // DDS cubemap flag
+        // DDS cubemap flag bit
         private const int DDSCAPS2_CUBEMAP = 10;
         
         // DDS header struct        

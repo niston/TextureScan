@@ -24,4 +24,4 @@ This tool will scan a folder (including all subfolders) for DDS texture files wi
 
 **NOTE**
 
-Not every texture it lists will necessarily crash the game. For example, background screens will not be powers of two sized. Use your own judgement.
+Not every texture it lists will necessarily crash the game. For example, background screens may not be powers of two sized. Use your own judgement.

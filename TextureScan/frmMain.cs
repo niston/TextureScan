@@ -29,32 +29,35 @@ namespace TextureScan
             public uint mipmapcount;
             public uint alphabitdepth;
             public uint[] reserved;
-
-            [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-            public struct DDSPixelFormat
-            {
-                public uint size;
-                public uint flags;
-                public uint fourcc;
-                public uint rgbbitcount;
-                public uint rbitmask;
-                public uint gbitmask;
-                public uint bbitmask;
-                public uint alphabitmask;
-            }
             public DDSPixelFormat pixelformat;
-
-            [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-            public struct DDSCaps
-            {
-                public uint caps1;
-                public uint caps2;
-                public uint caps3;
-                public uint caps4;
-            }
             public DDSCaps ddscaps;
             public uint texturestage;
         }
+
+        // DDS pixelformat struct
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public struct DDSPixelFormat
+        {
+            public uint size;           // must be 32 (size of DDSPixelFormat struct)
+            public uint flags;
+            public uint fourcc;
+            public uint rgbbitcount;
+            public uint rbitmask;
+            public uint gbitmask;
+            public uint bbitmask;
+            public uint alphabitmask;
+        }
+
+        // DDS capabilities struct
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public struct DDSCaps
+        {
+            public uint caps1;
+            public uint caps2;
+            public uint caps3;
+            public uint caps4;
+        }
+
 
         // abort flag
         bool bAbortScan = false;
@@ -71,7 +74,7 @@ namespace TextureScan
             DDSHeader header;
             
             // texture file stream
-            using (FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            using (FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 64, FileOptions.SequentialScan))
             {
                 // filestream binary reader
                 using (BinaryReader reader = new BinaryReader(stream))

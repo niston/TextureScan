@@ -19,8 +19,9 @@ This tool will scan a folder (including all subfolders) for DDS texture files wi
 - The tool finds all .DDS files in the given path and reads the DDS header of each file.
 - If the cubemap bit flag is set in the file, it will validate that the texture dimensions are multiples of 4.
 - If the cubemap bit flag is not set, it will validate that the texture dimensions be powers of two.
-- If the file doesn't have a DDS header, it'll list it as INVALID
-- If the file has a malformed DDS header, it'll list it as CORRUPTED
+- If the file doesn't have a DDS header, it'll list it as INVALID.
+- If the file has a malformed DDS header, it'll list it as CORRUPTED.
+- If the file is corrupted so badly that it manages to crash the header parser, it'll list it as ERROR.
 
 
 **NOTE**

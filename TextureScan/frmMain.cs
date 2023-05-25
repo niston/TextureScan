@@ -64,6 +64,7 @@ namespace TextureScan
             InitializeComponent();
         }
 
+        // read DDS header from file
         private DDSHeader ReadHeader(string filePath)
         {
             // header struct
@@ -94,9 +95,9 @@ namespace TextureScan
                     header.mipmapcount = reader.ReadUInt32();
                     header.alphabitdepth = reader.ReadUInt32();
 
-                    // read 10 reserved bytes
-                    header.reserved = new uint[10];
-                    for (int i = 0; i < 10; i++)
+                    // read 11 reserved bytes
+                    header.reserved = new uint[11];
+                    for (int i = 0; i <= 10; i++)
                     {
                         header.reserved[i] = reader.ReadUInt32();
                     }
@@ -196,7 +197,7 @@ namespace TextureScan
                     }
                 }
 
-                tslStatus.Text = "Scanned (" + fileCount + ") textures in (" + DateTime.Now.Subtract(startTime).TotalSeconds + ") seconds.";
+                tslStatus.Text = "Scanned (" + fileCount + ") textures in (" + DateTime.Now.Subtract(startTime).TotalSeconds + ") seconds. Found (" + lsvResults.Items.Count + ") possible offenders.";
             }
             catch (Exception ex)
             {

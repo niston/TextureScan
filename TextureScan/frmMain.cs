@@ -84,7 +84,7 @@ namespace TextureScan
                     // read and verify DDS header size
                     header.size = reader.ReadUInt32();
                     if (header.size != 124)
-                        throw new FormatException("Not a DDS file (" + filePath + "): Unexpected Header Struct Size.");
+                        throw new DataMisalignedException("Corrupted DDS file (" + filePath + "): Unexpected Header Struct Size.");
 
                     // read main header fields
                     header.flags = reader.ReadUInt32();
@@ -95,15 +95,19 @@ namespace TextureScan
                     header.mipmapcount = reader.ReadUInt32();
                     header.alphabitdepth = reader.ReadUInt32();
 
-                    // read 11 reserved bytes
-                    header.reserved = new uint[11];
-                    for (int i = 0; i <= 10; i++)
+                    // read reserved bytes
+                    header.reserved = new uint[10];
+                    for (int i = 0; i < 10; i++)
                     {
                         header.reserved[i] = reader.ReadUInt32();
                     }
 
-                    // read pixel format field
+                    // read pixel format size field
                     header.pixelformat.size = reader.ReadUInt32();
+                    if (header.pixelformat.size != 32)
+                        throw new DataMisalignedException("Corrupted DDS file (" + filePath + "): Unexpected PixelFormat Struct Size.");
+                    
+                    // read rest of pixel format fields
                     header.pixelformat.flags = reader.ReadUInt32();
                     header.pixelformat.fourcc = reader.ReadUInt32();
                     header.pixelformat.rgbbitcount = reader.ReadUInt32();
@@ -189,11 +193,23 @@ namespace TextureScan
                         var newItem = lsvResults.Items.Add(filePath);
                         newItem.SubItems.Add("INVALID");
                     }
+                    catch (DataMisalignedException)
+                    {
+                        // file has malformed dds header
+                        var newItem = lsvResults.Items.Add(filePath);
+                        newItem.SubItems.Add("CORRUPTED");
+                    }
                     catch (IndexOutOfRangeException iorEx)
                     {
                         // file has malformed dds header
                         var newItem = lsvResults.Items.Add(filePath);
                         newItem.SubItems.Add("CORRUPTED");
+                    }
+                    catch
+                    {
+                        // some error happened trying to parse the header
+                        var newItem = lsvResults.Items.Add(filePath);
+                        newItem.SubItems.Add("ERROR");
                     }
                 }
 

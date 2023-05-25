@@ -207,7 +207,7 @@ namespace TextureScan
                     }
                     catch
                     {
-                        // some error happened trying to parse the header
+                        // some other error happened trying to parse the header
                         var newItem = lsvResults.Items.Add(filePath);
                         newItem.SubItems.Add("ERROR");
                     }

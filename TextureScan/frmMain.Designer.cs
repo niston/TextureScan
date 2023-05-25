@@ -176,7 +176,7 @@ namespace TextureScan
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Name = "frmMain";
-            this.Text = "DDS Texture Scanner v1.1 by niston";
+            this.Text = "DDS Texture Scanner v1.2 by niston";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.statusStrip1.ResumeLayout(false);

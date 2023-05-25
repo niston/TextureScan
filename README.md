@@ -2,11 +2,12 @@
 
 This tool will scan a folder (including all subfolders) for DDS texture files with abnormal dimensions. It allows you to find textures in your folders that have the potential to crash your game or 3D application. Also, it goes _very_  fast if your harddrive can keep up.
 
+![alt text](https://i.imgur.com/2h60NPl.png)
 
 **HOW TO USE**
 
 - Requires [Microsoft .NET Framework 4.7.1](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net471) or higher
-- Build from source, or exctract and run the executable from Release
+- Build from Source, or exctract and run the executable from Release
 - Select scan folder with textures in it
 - Hit GO button
 - Observe
@@ -24,4 +25,4 @@ This tool will scan a folder (including all subfolders) for DDS texture files wi
 
 **NOTE**
 
-Not every texture it lists will necessarily crash the game. For example, background screens will not be powers of two sized. Use your own judgement.
+Not every texture it lists will necessarily crash the game. For example, background screens may not be powers of two sized. Use your own judgement.

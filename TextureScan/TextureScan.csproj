@@ -32,6 +32,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>dds.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>TextureScan.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,6 +52,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BA2Tools\BA2Archive.cs" />
+    <Compile Include="BA2Tools\BA2ExtractionException.cs" />
+    <Compile Include="BA2Tools\BA2GeneralArchive.cs" />
+    <Compile Include="BA2Tools\BA2Header.cs" />
+    <Compile Include="BA2Tools\BA2Loader.cs" />
+    <Compile Include="BA2Tools\BA2LoaderFlags.cs" />
+    <Compile Include="BA2Tools\BA2LoaderUtil.cs" />
+    <Compile Include="BA2Tools\BA2LoadException.cs" />
+    <Compile Include="BA2Tools\BA2TextureArchive.cs" />
+    <Compile Include="BA2Tools\BA2Type.cs" />
+    <Compile Include="BA2Tools\IBA2Archive.cs" />
+    <Compile Include="BA2Tools\BA2GeneralFileEntry.cs" />
+    <Compile Include="BA2Tools\BA2TextureFileEntry.cs" />
+    <Compile Include="BA2Tools\internal\ByteSequenceEqualityComparer.cs" />
+    <Compile Include="BA2Tools\internal\Dds.cs" />
+    <Compile Include="BA2Tools\IBA2FileEntry.cs" />
+    <Compile Include="BA2Tools\TextureChunk.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dds.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

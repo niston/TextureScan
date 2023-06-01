@@ -34,5 +34,29 @@ namespace TextureScan.Properties {
                 this["ScanPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ScanBA2 {
+            get {
+                return ((bool)(this["ScanBA2"]));
+            }
+            set {
+                this["ScanBA2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ListZeroMipmaps {
+            get {
+                return ((bool)(this["ListZeroMipmaps"]));
+            }
+            set {
+                this["ListZeroMipmaps"] = value;
+            }
+        }
     }
 }

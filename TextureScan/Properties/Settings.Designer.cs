@@ -37,7 +37,7 @@ namespace TextureScan.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool ScanBA2 {
             get {
                 return ((bool)(this["ScanBA2"]));
@@ -56,6 +56,18 @@ namespace TextureScan.Properties {
             }
             set {
                 this["ListZeroMipmaps"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AlwaysListGeneralBA2 {
+            get {
+                return ((bool)(this["AlwaysListGeneralBA2"]));
+            }
+            set {
+                this["AlwaysListGeneralBA2"] = value;
             }
         }
     }

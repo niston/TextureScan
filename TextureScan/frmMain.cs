@@ -595,6 +595,7 @@ namespace TextureScan
             Properties.Settings.Default.ScanPath = txtScanPath.Text;
             Properties.Settings.Default.ScanBA2 = chkProcessBA2.Checked;
             Properties.Settings.Default.ListZeroMipmaps = chkListZeroMipmaps.Checked;
+            Properties.Settings.Default.AlwaysListGeneralBA2 = chkAlwaysListGeneralBA2.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -604,6 +605,7 @@ namespace TextureScan
             txtScanPath.Text = Properties.Settings.Default.ScanPath;
             chkProcessBA2.Checked = Properties.Settings.Default.ScanBA2;
             chkListZeroMipmaps.Checked = Properties.Settings.Default.ListZeroMipmaps;
+            chkAlwaysListGeneralBA2.Checked = Properties.Settings.Default.AlwaysListGeneralBA2;
 
             // update UI
             if (chkProcessBA2.Checked) { chkAlwaysListGeneralBA2.Enabled = true; } else { chkAlwaysListGeneralBA2.Enabled = false; }

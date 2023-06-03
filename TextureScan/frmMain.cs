@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 using Ba2Tools;
 
@@ -169,7 +170,7 @@ namespace TextureScan
                 bAbortScan = false;
 
                 // clear list
-                lsvResults.Items.Clear();                
+                lsvResults.Items.Clear();
 
                 // UI chatter
                 tslStatus.Text = "Enumerating files...";
@@ -184,6 +185,7 @@ namespace TextureScan
                 }
                 else
                 {
+                    // dds files only
                     filePaths = Directory.EnumerateFiles(txtScanPath.Text, "*.dds", SearchOption.AllDirectories).ToList();
                 }
 
@@ -511,24 +513,20 @@ namespace TextureScan
                 }
 
                 // UI chatter
-                tslStatus.Text = "Scanned (" + fileCountScanned + ") textures in (" + DateTime.Now.Subtract(startTime).TotalSeconds + ") seconds. Found (" + lsvResults.Items.Count + ") possible offenders.";
+                if (bAbortScan)
+                {
+                    tslStatus.Text = "Scan aborted after (" + fileCountScanned + "/" + fileCountTotal.ToString() + ") textures in (" + DateTime.Now.Subtract(startTime).TotalSeconds + ") seconds. Found (" + lsvResults.Items.Count + ") possible offenders.";
+                }
+                else
+                {
+                    tslStatus.Text = "Scanned (" + fileCountScanned + ") textures in (" + DateTime.Now.Subtract(startTime).TotalSeconds + ") seconds. Found (" + lsvResults.Items.Count + ") possible offenders.";
+                }
             }
             catch (Exception ex)
             {
                 HandleException(ex);
             }
             finally { bScanRunning = false; }
-        }
-
-        // open file with default program
-        public static void OpenWithDefaultProgram(string path)
-        {
-            using (Process fileopener = new Process())
-            {
-                fileopener.StartInfo.FileName = "explorer";
-                fileopener.StartInfo.Arguments = "\"" + path + "\"";
-                fileopener.Start();
-            }
         }
 
         // validate texture dimensions from BA2TextureFileEntry
@@ -580,12 +578,64 @@ namespace TextureScan
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool IsDivisible(uint x, uint n)
+        private bool IsDivisible(uint x, uint n)
         {
             return (x % n) == 0;
         }
 
-        // UI functions
+        // open file with default program
+        private static void OpenWithDefaultProgram(string path)
+        {
+            using (Process fileopener = new Process())
+            {
+                fileopener.StartInfo.FileName = "explorer";
+                fileopener.StartInfo.Arguments = "\"" + path + "\"";
+                fileopener.Start();
+            }
+        }
+
+        // select file in explorer
+        private static void SelectInExplorer(string path)
+        {
+            using (Process fileopener = new Process())
+            {
+                fileopener.StartInfo.FileName = "explorer";
+                fileopener.StartInfo.Arguments = "/select, \"" + path + "\"";
+                fileopener.Start();
+            }
+        }
+
+        private void AppendHeader(StringBuilder stringBuilder, ListView listView)
+        {
+            int count = 0;
+            foreach (ColumnHeader header in listView.Columns)
+            {
+                count++;
+                if (count != 1) { stringBuilder.Append(";"); }
+                stringBuilder.Append(header.Text);
+            }
+            stringBuilder.Append(Environment.NewLine);
+        }
+
+        private void AppendSubItems(StringBuilder stringBuilder, ListViewItem lsvItem)
+        {
+            int count = 0;
+            foreach (ListViewItem.ListViewSubItem subitem in lsvItem.SubItems)
+            {
+                count++;
+                if (count == 1)
+                {
+                    stringBuilder.Append(subitem.Text);
+                }
+                else
+                {
+                    stringBuilder.Append(";" + subitem.Text);
+                }
+            }
+            stringBuilder.Append(Environment.NewLine);
+        }
+
+        // UI event handlers etc
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             // abort any running scan
@@ -696,6 +746,66 @@ namespace TextureScan
         private void lnkAbout_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OpenWithDefaultProgram("https://www.nexusmods.com/fallout4/mods/71588");
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (lsvResults.Items.Count == 0)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+
+            }
+        }
+
+        private void cmuCopyListToClipboard_Click(object sender, EventArgs e)
+        {
+            StringBuilder clpText = new StringBuilder();
+            AppendHeader(clpText, lsvResults);
+            foreach (ListViewItem item in lsvResults.Items)
+            {
+                AppendSubItems(clpText, item);
+            }
+            Clipboard.SetText(clpText.ToString());
+            clpText.Clear();
+        }
+
+        private void cmuCopyListEntryToClipboard_Click(object sender, EventArgs e)
+        {
+            if (lsvResults.SelectedItems.Count > 0)
+            {
+                StringBuilder clpText = new StringBuilder();
+                AppendHeader(clpText, lsvResults);
+                foreach (ListViewItem item in lsvResults.SelectedItems)
+                {
+                    AppendSubItems(clpText, item);
+                }
+                Clipboard.SetText(clpText.ToString());
+                clpText.Clear();
+            }
+        }
+
+        private void cmuOpenPathInExplorer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lsvResults.SelectedItems.Count > 0)
+                {
+                    string filePath = lsvResults.SelectedItems[0].Text;
+                    // strip archive subpaths
+                    if (filePath.Contains(ArchPathSep))
+                    {
+                        filePath = filePath.Substring(0, filePath.IndexOf(ArchPathSep));
+                    }                    
+                    SelectInExplorer(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
         }
     }
 }

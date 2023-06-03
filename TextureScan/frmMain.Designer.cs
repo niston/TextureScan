@@ -35,6 +35,7 @@ namespace TextureScan
             this.tslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lnkAbout = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.chkAlwaysListGeneralBA2 = new System.Windows.Forms.CheckBox();
             this.chkListZeroMipmaps = new System.Windows.Forms.CheckBox();
@@ -50,13 +51,18 @@ namespace TextureScan
             this.colArchive = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblPleaseWait = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.lnkAbout = new System.Windows.Forms.LinkLabel();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmuCopyListToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmuOpenPathInExplorer = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmuCopyListEntryToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -114,6 +120,18 @@ namespace TextureScan
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Scanner Control";
+            // 
+            // lnkAbout
+            // 
+            this.lnkAbout.AutoSize = true;
+            this.lnkAbout.Location = new System.Drawing.Point(73, 47);
+            this.lnkAbout.Name = "lnkAbout";
+            this.lnkAbout.Size = new System.Drawing.Size(147, 13);
+            this.lnkAbout.TabIndex = 7;
+            this.lnkAbout.TabStop = true;
+            this.lnkAbout.Text = "would you like to know more?";
+            this.lnkAbout.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.lnkAbout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAbout_LinkClicked);
             // 
             // label1
             // 
@@ -209,6 +227,7 @@ namespace TextureScan
             this.colMipmapCount,
             this.colIsCubemap,
             this.colArchive});
+            this.lsvResults.ContextMenuStrip = this.contextMenuStrip1;
             this.lsvResults.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvResults.FullRowSelect = true;
             this.lsvResults.HideSelection = false;
@@ -255,17 +274,42 @@ namespace TextureScan
             this.lblPleaseWait.Text = "Working; Please Stand By...";
             this.lblPleaseWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lnkAbout
+            // contextMenuStrip1
             // 
-            this.lnkAbout.AutoSize = true;
-            this.lnkAbout.Location = new System.Drawing.Point(73, 47);
-            this.lnkAbout.Name = "lnkAbout";
-            this.lnkAbout.Size = new System.Drawing.Size(147, 13);
-            this.lnkAbout.TabIndex = 7;
-            this.lnkAbout.TabStop = true;
-            this.lnkAbout.Text = "would you like to know more?";
-            this.lnkAbout.VisitedLinkColor = System.Drawing.Color.Blue;
-            this.lnkAbout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAbout_LinkClicked);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmuCopyListToClipboard,
+            this.cmuCopyListEntryToClipboard,
+            this.toolStripMenuItem1,
+            this.cmuOpenPathInExplorer});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(254, 76);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            // 
+            // cmuCopyListToClipboard
+            // 
+            this.cmuCopyListToClipboard.Name = "cmuCopyListToClipboard";
+            this.cmuCopyListToClipboard.Size = new System.Drawing.Size(253, 22);
+            this.cmuCopyListToClipboard.Text = "Copy entire list to clipboard";
+            this.cmuCopyListToClipboard.Click += new System.EventHandler(this.cmuCopyListToClipboard_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(250, 6);
+            // 
+            // cmuOpenPathInExplorer
+            // 
+            this.cmuOpenPathInExplorer.Name = "cmuOpenPathInExplorer";
+            this.cmuOpenPathInExplorer.Size = new System.Drawing.Size(253, 22);
+            this.cmuOpenPathInExplorer.Text = "Open file path in Explorer";
+            this.cmuOpenPathInExplorer.Click += new System.EventHandler(this.cmuOpenPathInExplorer_Click);
+            // 
+            // cmuCopyListEntryToClipboard
+            // 
+            this.cmuCopyListEntryToClipboard.Name = "cmuCopyListEntryToClipboard";
+            this.cmuCopyListEntryToClipboard.Size = new System.Drawing.Size(253, 22);
+            this.cmuCopyListEntryToClipboard.Text = "Copy selected entries to clipboard";
+            this.cmuCopyListEntryToClipboard.Click += new System.EventHandler(this.cmuCopyListEntryToClipboard_Click);
             // 
             // frmMain
             // 
@@ -287,6 +331,7 @@ namespace TextureScan
             this.splitContainer1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -313,6 +358,11 @@ namespace TextureScan
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chkAlwaysListGeneralBA2;
         private System.Windows.Forms.LinkLabel lnkAbout;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem cmuCopyListToClipboard;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem cmuOpenPathInExplorer;
+        private System.Windows.Forms.ToolStripMenuItem cmuCopyListEntryToClipboard;
     }
 }
 

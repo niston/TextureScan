@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 /header.png
 /screenshot.png
+
+# extra folder
+extra/
